@@ -19,6 +19,7 @@ import { AuthenticatedRequestModel } from '../auth/models/authenticatedRequestMo
 import { CreateProductBody } from './dtos/CreateProductBody';
 import { EditProductBody } from './dtos/EditProducutBody';
 import { ProductViewModel } from './viewModels/productViewModel';
+import { Public } from '../auth/decorators/isPublic';
 
 @Controller('Products')
 export class ProducutController {
@@ -76,6 +77,8 @@ export class ProducutController {
       userId,
     });
   }
+  
+  @Public()
   @Get('list')
   async getManyProducts(
     @Request() request: AuthenticatedRequestModel,
@@ -91,6 +94,7 @@ export class ProducutController {
 
     return products.map(ProductViewModel.toHttp);
   }
+  @Public()
   @Get('byType')
   async getProductsByType(
     @Request() request: AuthenticatedRequestModel,
@@ -102,6 +106,7 @@ export class ProducutController {
 
     return products.map(ProductViewModel.toHttp);
   }
+
 
   @Get(':productId')
   async getProduct(
